@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: student-api
+  datasource:
+    # Values come from environment variables (app.env on EC2) - no password in code.
+    # sslmode=require: the connection to Amazon RDS is always encrypted (TLS).
+    url: jdbc:postgresql://${DB_HOST}:5432/${DB_NAME:studentdb}?sslmode=require
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
